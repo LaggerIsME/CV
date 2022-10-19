@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 import jinja2
-
+import SQLAlchemy
 #Создаю объект типа Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
 
