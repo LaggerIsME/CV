@@ -8,7 +8,7 @@
         <meta content="Free Website Template" name="description">
 
         <!-- Favicon -->
-        <link href="../static/img/favicon.ico" rel="icon">
+        <link href="{{ url_for('static', filename = 'img/favicon.ico')}}" rel="icon">
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,9 +16,9 @@
         <!-- CSS Libraries -->
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-        <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
-        <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="../static/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename = 'lib/animate/animate.min.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static', filename = 'lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static', filename = 'lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
         <!-- Подключение CSS через JINJA2 через url_for('родительская папка', filename = 'дальнейший путь'-->
@@ -44,6 +44,11 @@
                         <a href="#review" class="nav-item nav-link">Review</a>
                         <a href="#blog" class="nav-item nav-link">Blog</a>
                         <a href="#contact" class="nav-item nav-link">Contact</a>
+                        <a href="#logout" class="nav-item nav-link">Logout</a>
+                        <a href="/login" class="nav-item nav-link">Login</a>
+                        <a href="/register" class="nav-item nav-link">Register</a>
+
+
                     </div>
                 </div>
             </div>
@@ -71,7 +76,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6 d-none d-md-block">
                         <div class="hero-image">
-                            <img src="../static/img/hero.png" alt="Hero Image">
+                            <img src="{{ url_for('static', filename = 'img/hero.png')}}" alt="Hero Image">
                         </div>
                     </div>
                 </div>
@@ -86,7 +91,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="about-img">
-                            <img src="../static/img/about.jpg" alt="Image">
+                            <img src="{{ url_for('static', filename = 'img/about.jpg')}}" alt="Image">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -240,66 +245,66 @@
                     <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.0s">
                         <div class="portfolio-wrap">
                             <div class="portfolio-img">
-                                <img src="../static/img/portfolio-1.jpg" alt="Image">
+                                <img src="{{ url_for('static', filename = 'img/portfolio-1.jpg')}}" alt="Image">
                             </div>
                             <div class="portfolio-text">
                                 <h3>eCommerce Website</h3>
-                                <a class="btn" href="../static/img/portfolio-1.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{ url_for('static', filename = 'img/portfolio-1.jpg')}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="portfolio-wrap">
                             <div class="portfolio-img">
-                                <img src="../static/img/portfolio-2.jpg" alt="Image">
+                                <img src="{{ url_for('static', filename = 'img/portfolio-2.jpg')}}" alt="Image">
                             </div>
                             <div class="portfolio-text">
                                 <h3>Product Landing Page</h3>
-                                <a class="btn" href="../static/img/portfolio-2.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{ url_for('static', filename = 'img/portfolio-2.jpg')}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="0.4s">
                         <div class="portfolio-wrap">
                             <div class="portfolio-img">
-                                <img src="../static/img/portfolio-3.jpg" alt="Image">
+                                <img src="{{ url_for('static', filename = 'img/portfolio-3.jpg')}}" alt="Image">
                             </div>
                             <div class="portfolio-text">
                                 <h3>JavaScript quiz game</h3>
-                                <a class="btn" href="../static/img/portfolio-3.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{ url_for('static', filename = 'img/portfolio-3.jpg')}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-1 wow fadeInUp" data-wow-delay="0.6s">
                         <div class="portfolio-wrap">
                             <div class="portfolio-img">
-                                <img src="../static/img/portfolio-4.jpg" alt="Image">
+                                <img src="{{ url_for('static', filename = 'img/portfolio-4.jpg')}}" alt="Image">
                             </div>
                             <div class="portfolio-text">
                                 <h3>JavaScript drawing</h3>
-                                <a class="btn" href="../static/img/portfolio-4.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{ url_for('static', filename = 'img/portfolio-4.jpg')}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-2 wow fadeInUp" data-wow-delay="0.8s">
                         <div class="portfolio-wrap">
                             <div class="portfolio-img">
-                                <img src="../static/img/portfolio-5.jpg" alt="Image">
+                                <img src="{{ url_for('static', filename = 'img/portfolio-5.jpg')}}" alt="Image">
                             </div>
                             <div class="portfolio-text">
                                 <h3>Social Mobile Apps</h3>
-                                <a class="btn" href="../static/img/portfolio-5.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{ url_for('static', filename = 'img/portfolio-5.jpg')}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 portfolio-item filter-3 wow fadeInUp" data-wow-delay="1s">
                         <div class="portfolio-wrap">
                             <div class="portfolio-img">
-                                <img src="../static/img/portfolio-6.jpg" alt="Image">
+                                <img src="{{ url_for('static', filename = 'img/portfolio-6.jpg')}}" alt="Image">
                             </div>
                             <div class="portfolio-text">
                                 <h3>Company Website</h3>
-                                <a class="btn" href="../static/img/portfolio-6.jpg" data-lightbox="portfolio">+</a>
+                                <a class="btn" href="{{ url_for('static', filename = 'img/portfolio-6.jpg')}}" data-lightbox="portfolio">+</a>
                             </div>
                         </div>
                     </div>
@@ -317,7 +322,7 @@
                 <div class="owl-carousel testimonials-carousel">
                     <div class="testimonial-item">
                         <div class="testimonial-img">
-                            <img src="../static/img/testimonial-1.jpg" alt="Image">
+                            <img src="{{ url_for('static', filename = 'img/testimonial-1.jpg')}}" alt="Image">
                         </div>
                         <div class="testimonial-text">
                             <p>
@@ -329,7 +334,7 @@
                     </div>
                     <div class="testimonial-item">
                         <div class="testimonial-img">
-                            <img src="../static/img/testimonial-2.jpg" alt="Image">
+                            <img src="{{ url_for('static', filename = 'img/testimonial-2.jpg')}}" alt="Image">
                         </div>
                         <div class="testimonial-text">
                             <p>
@@ -341,7 +346,7 @@
                     </div>
                     <div class="testimonial-item">
                         <div class="testimonial-img">
-                            <img src="../static/img/testimonial-3.jpg" alt="Image">
+                            <img src="{{ url_for('static', filename = 'img/testimonial-3.jpg')}}" alt="Image">
                         </div>
                         <div class="testimonial-text">
                             <p>
@@ -366,9 +371,9 @@
                         <div class="col-md-8">
                             <div class="contact-form">
                                 <div id="success"></div>
-                                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                                <form action="{{ url_for('handle_data') }}" method="POST" novalidate="novalidate">
                                     <div class="control-group">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                        <input type="text" class="form-control" name="sender_name" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
                                         <p class="help-block"></p>
                                     </div>
                                     <div class="control-group">
@@ -384,6 +389,7 @@
                                         <p class="help-block"></p>
                                     </div>
                                     <div>
+
                                         <button class="btn" type="submit" id="sendMessageButton">Send Message</button>
                                     </div>
                                 </form>
@@ -407,7 +413,7 @@
                     <div class="col-lg-6">
                         <div class="blog-item wow fadeInUp" data-wow-delay="0.1s">
                             <div class="blog-img">
-                                <img src="../static/img/blog-1.jpg" alt="Blog">
+                                <img src="{{ url_for('static', filename = 'img/blog-1.jpg')}}" alt="Blog">
                             </div>
                             <div class="blog-text">
                                 <h2>Lorem ipsum dolor sit amet</h2>
@@ -427,7 +433,7 @@
                     <div class="col-lg-6">
                         <div class="blog-item wow fadeInUp" data-wow-delay="0.3s">
                             <div class="blog-img">
-                                <img src="../static/img/blog-2.jpg" alt="Blog">
+                                <img src="{{ url_for('static', filename = 'img/blog-2.jpg')}}" alt="Blog">
                             </div>
                             <div class="blog-text">
                                 <h2>Lorem ipsum dolor sit amet</h2>
