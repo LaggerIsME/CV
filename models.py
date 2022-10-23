@@ -42,5 +42,5 @@ class Type(BaseModel):
 # username
 # password
 
-# Чтоб все работало правильно из документации
+# Условие, чтоь все работало правильно из документации Allfeaturesmixin
 BaseModel.set_session(session)

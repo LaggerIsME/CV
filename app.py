@@ -5,16 +5,19 @@ import jinja2
 import db
 from db import session
 from models import FeedBack, Work, Type
-#Создаю объект типа Flask, в котором основным файлом будет app.py
+
+# Создаю объект типа Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
 CORS(app)
-#создать все таблицы из Models
+# создать все таблицы из Models
 db.init()
+
 
 # Грузит основную страницу
 @app.route('/')
 def index():
     return render_template("index.html")
+
 
 # Обрабатывает фидбэки от работадателей
 @app.route('/handle_data', methods=['POST'])
@@ -23,10 +26,11 @@ def handle_data():
     job_email = request.form['job_email']
     job_subject = request.form['job_subject']
     job_message = request.form['job_message']
-    response = FeedBack.create(name = job_name, email = job_email, subject = job_subject, message = job_message)
+    response = FeedBack.create(name=job_name, email=job_email, subject=job_subject, message=job_message)
     return render_template("index.html")
     # your code
     # return a response
+
 
 # Flask 6 functions
 # / - index.html
@@ -43,6 +47,6 @@ def handle_data():
 # PATCH /api/work/:id -> to edit
 
 
-#Запуск файла, как Flask-приложение
+# Запуск файла, как Flask-приложение
 if __name__ == "__main__":
     app.run(debug=True)
