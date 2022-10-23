@@ -1,18 +1,39 @@
 from flask import Flask, render_template, url_for, request
 from flask_cors import CORS
 import jinja2
-
+from flask_security.datastore import SQLAlchemyDatastore
+from flask_security import Security
 import db
 from db import session
-from models import FeedBack, Work, Type
+from models import FeedBack, Work
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
-# Создаю объект типа Flask, в котором основным файлом будет app.py
+
+# Создаю проект Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
 CORS(app)
-# создать все таблицы из Models
-db.init()
 
 
+
+# Подключение админ панели из flask-admin
+admin = Admin(app, name = "Resume", template_mode="bootstrap4", )
+
+# добавляем редакцию таблиц на админ панельку
+admin.add_view(ModelView(FeedBack, session, name = "FeedBack"))
+admin.add_view(ModelView(Work, session))
+"""
+admin.add_view(ModelView(User, session))
+admin.add_view(ModelView(Role, session))
+"""
+
+
+"""
+# Flask Security
+# Ограничиваем доступ к панели
+user_datastore = SQLAlchemyDatastore(db, User, Role)
+security = Security(app, user_datastore)
+"""
 # Грузит основную страницу
 @app.route('/')
 def index():
@@ -49,4 +70,6 @@ def handle_data():
 
 # Запуск файла, как Flask-приложение
 if __name__ == "__main__":
+    db.init()
     app.run(debug=True)
+
