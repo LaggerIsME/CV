@@ -25,7 +25,19 @@ def handle_data():
     # your code
     # return a response
 
+# Flask 6 functions
+# / - index.html
+# POST /feedback - to send email
+# /admin if not singed in, redirect to /admin/login, else to /admin/dashboard
+# /admin/login
+# /admin/dashboard
+# /admin/works
 
+# FASTAPI
+# GET /api/works -> list of works
+# POST /api/works -> to add work
+# DELETE /api/work/:id -> to delete work
+# PATCH /api/work/:id -> to edit
 
 
 #Запуск файла, как Flask-приложение
