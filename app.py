@@ -1,13 +1,15 @@
 from flask import Flask, render_template, url_for, request
 from flask_cors import CORS
 import jinja2
-from datetime import datetime
-#from db import session
-#import models
 
+import db
+from db import session
+from models import FeedBack, Work, Type
 #Создаю объект типа Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
 CORS(app)
+#создать все таблицы из Models
+db.init()
 
 # Грузит основную страницу
 @app.route('/')
@@ -21,6 +23,7 @@ def handle_data():
     job_email = request.form['job_email']
     job_subject = request.form['job_subject']
     job_message = request.form['job_message']
+    response = FeedBack.create(name = job_name, email = job_email, subject = job_subject, message = job_message)
     return render_template("index.html")
     # your code
     # return a response
