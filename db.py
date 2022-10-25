@@ -5,7 +5,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 # Подключение к базе данных
 # Пример: dialect+driver://username:password@host:port/database
-engine = create_engine("postgresql://postgres:12345678@localhost:5432/cv", pool_size=10, max_overflow=20)
+engine = create_engine("postgresql://postgres:12345678@localhost:5432/cv", pool_size=20, max_overflow=30)
 
 
 # Сессия для обращения к базе данных в каждом потоке (scoped_session)

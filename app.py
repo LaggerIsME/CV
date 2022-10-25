@@ -11,7 +11,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
 # Очистка сессии после каждого входа
-session.clear()
+
 
 # Создаю проект Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
