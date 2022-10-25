@@ -10,6 +10,9 @@ from models import FeedBack, User, Role
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 
+# Очистка сессии после каждого входа
+session.clear()
+
 # Создаю проект Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
 CORS(app)
@@ -19,7 +22,7 @@ app.config['SECRET_KEY'] = 'kapez-secure'
 app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
 app.config['SECURITY_PASSWORD_SALT'] = 'salt-secure'
 
-# user_datastore = SQLAlchemySessionUserDatastore(db_session,User, Role), если SQLAlchemy
+# user_datastore = SQLAlchemySessionUserDatastore(session,User, Role), если SQLAlchemy
 # user_datastore = SQLAlchemyUserDatastore(session, User, Role), если Flask-SQLAlchemy
 user_datastore = SQLAlchemySessionUserDatastore(session, User, Role)
 security = Security(app, user_datastore)
@@ -81,7 +84,7 @@ def handle_data():
     job_message = request.form['job_message']
     response = FeedBack(name=job_name, email=job_email, subject=job_subject, message=job_message)
     session.add(response)
-    session.commit(response)
+    session.commit()
     return render_template("index.html")
 
 
