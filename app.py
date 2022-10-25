@@ -1,39 +1,71 @@
 from flask import Flask, render_template, url_for, request
 from flask_cors import CORS
 import jinja2
-from flask_security.datastore import SQLAlchemyDatastore
-from flask_security import Security
+from flask_login import login_required
+from flask_security.datastore import SQLAlchemySessionUserDatastore
+from flask_security import Security, utils
 import db
 from db import session
-from models import FeedBack, Work
+from models import FeedBack, User, Role
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-
 
 # Создаю проект Flask, в котором основным файлом будет app.py
 app = Flask(__name__)
 CORS(app)
 
+# Flask Security
+app.config['SECRET_KEY'] = 'kapez-secure'
+app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
+app.config['SECURITY_PASSWORD_SALT'] = 'salt-secure'
 
+# user_datastore = SQLAlchemySessionUserDatastore(db_session,User, Role), если SQLAlchemy
+# user_datastore = SQLAlchemyUserDatastore(session, User, Role), если Flask-SQLAlchemy
+user_datastore = SQLAlchemySessionUserDatastore(session, User, Role)
+security = Security(app, user_datastore)
 
-# Подключение админ панели из flask-admin
-admin = Admin(app, name = "Resume", template_mode="bootstrap4", )
+# Flask Admin
+admin = Admin(app, name="Resume", template_mode="bootstrap4", )
 
 # добавляем редакцию таблиц на админ панельку
-admin.add_view(ModelView(FeedBack, session, name = "FeedBack"))
-admin.add_view(ModelView(Work, session))
-"""
+admin.add_view(ModelView(FeedBack, session, name="FeedBack"))
 admin.add_view(ModelView(User, session))
 admin.add_view(ModelView(Role, session))
-"""
 
 
-"""
-# Flask Security
-# Ограничиваем доступ к панели
-user_datastore = SQLAlchemyDatastore(db, User, Role)
-security = Security(app, user_datastore)
-"""
+# Вход в админ панель
+@app.before_first_request
+def before_first_request():
+
+    # Создание юзеров
+    user_datastore.find_or_create_role(name='admin', description='Administrator')
+    user_datastore.find_or_create_role(name='end-user', description='End user')
+
+    # Создание двух юзеров, если они не существуют
+    # In each case, use Flask-Security utility function to encrypt the password.
+    encrypted_password = utils.hash_password('password')
+    if not user_datastore.get_user('someone@example.com'):
+        user_datastore.create_user(email='someone@example.com', password=encrypted_password)
+    if not user_datastore.get_user('admin@example.com'):
+        user_datastore.create_user(email='admin@example.com', password=encrypted_password)
+
+    #сохранить изменения
+    session.commit()
+
+    user_datastore.add_role_to_user('someone@example.com', 'end-user')
+    user_datastore.add_role_to_user('admin@example.com', 'admin')
+    session.commit()
+
+    # Чтоб перекидывало на login, а не сразу на admin-панель
+    endpoint = 'admin.index'
+    url = url_for(endpoint)
+    admin_index = app.view_functions.pop(endpoint)
+    @app.route(url, endpoint=endpoint)
+    @login_required
+    def secure_admin_index():
+        return admin_index()
+
+
 # Грузит основную страницу
 @app.route('/')
 def index():
@@ -47,29 +79,13 @@ def handle_data():
     job_email = request.form['job_email']
     job_subject = request.form['job_subject']
     job_message = request.form['job_message']
-    response = FeedBack.create(name=job_name, email=job_email, subject=job_subject, message=job_message)
+    response = FeedBack(name=job_name, email=job_email, subject=job_subject, message=job_message)
+    session.add(response)
+    session.commit(response)
     return render_template("index.html")
-    # your code
-    # return a response
-
-
-# Flask 6 functions
-# / - index.html
-# POST /feedback - to send email
-# /admin if not singed in, redirect to /admin/login, else to /admin/dashboard
-# /admin/login
-# /admin/dashboard
-# /admin/works
-
-# FASTAPI
-# GET /api/works -> list of works
-# POST /api/works -> to add work
-# DELETE /api/work/:id -> to delete work
-# PATCH /api/work/:id -> to edit
 
 
 # Запуск файла, как Flask-приложение
 if __name__ == "__main__":
     db.init()
     app.run(debug=True)
-

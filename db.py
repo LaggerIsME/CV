@@ -5,14 +5,13 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 # Подключение к базе данных
 # Пример: dialect+driver://username:password@host:port/database
-engine: sqlalchemy.engine.base.Engine = create_engine("postgresql://postgres:12345678@localhost:5432/cv")
+engine = create_engine("postgresql://postgres:12345678@localhost:5432/cv", pool_size=10, max_overflow=20)
 
 
-# Сессия для обращения к базе данных в каждом потоке (scoped_session), autocommit = True ОБЯЗАТЕЛЬНО
-# поскольку библиотека без этого не будет сохранять изменения
-session: sqlalchemy.orm.scoped_session = scoped_session(sessionmaker(bind=engine, autocommit=True))
+# Сессия для обращения к базе данных в каждом потоке (scoped_session)
+session = scoped_session(sessionmaker(bind=engine))
 base = declarative_base()
-
+base.query = session.query_property()
 
 # Инициализировать все модели
 def init():
